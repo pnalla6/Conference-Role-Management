@@ -1,0 +1,53 @@
+.addNewTask {
+    width: 100%;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 1px 2px 0 1px rgba(0, 0, 0, 0.15);
+}
+
+.addTaskButton {
+    background-color: #f8f8f8;
+    border-radius: 3px;
+    padding: 10px;
+    text-align: center;
+    cursor: default;
+}
+.addTaskButton:hover {
+    background-color: #ccc;
+}
+
+.addTaskForm {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.addTaskForm > input {
+    border-radius: 3px;
+    outline: none;
+    border: 1px solid cyan;
+    padding: 10px;
+    font-size: 1rem;
+}
+
+.addTaskForm > .addTaskFormFooter {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.addTaskForm > .addTaskFormFooter > button {
+    outline: none;
+    border: none;
+    color: #fff;
+    background-color: cyan;
+    padding: 8px 16px;
+    border-radius: 5px;
+    transition: 200ms;
+    cursor: pointer;
+}
+
+.addTaskForm > .addTaskFormFooter > button {
+    background-color: darkcyan;
+}
+
+.addTaskForm > .addTaskFormFooter > svg {cursor: pointer;}

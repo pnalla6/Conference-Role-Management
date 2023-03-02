@@ -1,0 +1,17 @@
+.flair {
+    width: fit-content;
+    display: flex;
+    gap: 10px;
+    padding: 4px 8px;
+    color: #fff;
+    background-color: grey;
+    align-items: center;
+    border-radius: 40px;
+    font-size: 14px;
+}
+
+.flair > svg {
+    width: 1rem;
+    height: 1rem;
+    cursor: pointer;
+}

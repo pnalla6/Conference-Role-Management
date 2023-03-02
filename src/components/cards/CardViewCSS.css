@@ -1,0 +1,62 @@
+.card {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #fff;
+}
+
+.card_top {
+    display: flex;
+    gap: 5px;
+}
+
+.card_top_label {
+    display: flex;
+    flex: 1;
+    gap: 10px;
+}
+
+.card_top > svg {
+    opacity: 0;
+    transition: 200ms;
+}
+
+.card:hover > .card_top > svg {
+    opacity: 1;
+}
+
+.card_title {
+    font-weight: bold;
+}
+
+.card_footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card_footer > p {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+
+.card_footer > p > svg {
+    width: 1rem;
+    height: 1rem;
+}
+
+.card_top_more {
+    position: relative;
+    cursor: pointer;
+}
+
+.card_dropdown {
+    background-color: #fff;
+    width: 90px;
+    padding: 5px;
+    border-radius: 3px;
+    box-shadow: 1px 0px 10px rgba(0, 0, 0, 0.5);
+}
