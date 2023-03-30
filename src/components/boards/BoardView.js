@@ -7,6 +7,18 @@ import Dropdown from '../dropdown/Dropdown';
 
 function BoardView(props) {
     const [showDropdown, setShowDropdown] = useState(false);
+
+    // Sort tasks based on their deadline
+    const sortedTasks = [...props?.data?.tasks].sort((task1, task2) => {
+        if (task1.deadlines.hard > task2.deadlines.hard) {
+            return -1;
+        }
+        if (task1.deadlines.hard < task2.deadlines.hard) {
+            return 1;
+        }
+        return 0;
+    });
+
     return (
         <div className='board'>
             <div className='top'>
@@ -23,14 +35,19 @@ function BoardView(props) {
                 </div>
             </div>
             <div className='cards'>
-                {props?.data?.tasks?.map((task) => (
+                {sortedTasks.map((task) => (
                     <CardView
+                        key={task.task_id}
+                        task_id={task.task_id}
                         roleID={props?.data?.role_id}
                         data={task}
                         deleteTask={props.deleteTask} />
                 ))}
                 <AddNewTask
-                    onSubmit={(newTask) => { AddNewTask(newTask, props?.data?.role_id) }} />
+                    role_id={props.role_id}
+                    addNewTaskToRole={props.addNewTask}
+                // onSubmit={(newTaskTitle) => { props.addNewTask(newTaskTitle, props?.data?.role_id) }} 
+                />
             </div>
         </div>
     )

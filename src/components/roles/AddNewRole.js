@@ -4,7 +4,8 @@ import { X } from 'react-feather';
 
 function AddNewRole(props) {
   const [showAddNewRole, setShowAddNewRole] = useState(false);
-  const [inputValue, setInputValue] = useState('');
+  const [roleType, setRoleType] = useState('');
+  const [rolePersonName, setRolePersonName] = useState('');
 
   return (
     <div className='addNewRole'>
@@ -12,11 +13,13 @@ function AddNewRole(props) {
         ?
         <form className='addNewRoleForm' onSubmit={(e) => {
           e.preventDefault();
-          if (props.onSubmit) props.onSubmit(inputValue);
+          if (props.onSubmit) props.onSubmit(roleType, rolePersonName);
           setShowAddNewRole(false);
-          setInputValue(" "); 
+          setRoleType(" ");
+          setRolePersonName(" ");
         }}>
-          <input value={inputValue} type="text" placeholder={props.placeholder} autoFocus={true} onChange={(e) => { setInputValue(e.target.value); }} />
+          <input value={roleType} type="text" placeholder="Enter Role Type" autoFocus={true} onChange={(e) => { setRoleType(e.target.value); }} />
+          <input value={rolePersonName} type="text" placeholder="Enter Name" onChange={(e) => { setRolePersonName(e.target.value); }} />
           <div className='addNewRoleFormFooter'>
             <button type='submit'>{props.buttonText || 'Add'}</button>
             <X onClick={() => setShowAddNewRole(false)} />

@@ -1,182 +1,161 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './App.css';
 import BoardView from './components/boards/BoardView';
 import AddNewRole from './components/roles/AddNewRole';
-import myData from './assets/data.json';
+// import myData from './assets/data.json';
+import Timeline from './components/timeline/Timeline';
+
+import axios from 'axios';
+
+
 function App() {
-  const dataRoles = [
-    {
-      "role_id": "01",
-      "role_type": "General Chair",
-      "names": [
-        "abc"
-      ],
-      "contact_info": "123",
-      "tasks": [
-        {
-          "task_id": "01",
-          "task_type": "Review",
-          "is_flexible": "true",
-          "task_dependency": [
-            1,
-            2,
-            3,
-            4
-          ],
-          "task_created_date": "02-16-2023",
-          "task_description": "Some General Paper Review",
-          "task_notes": "contact financial chair for advice before deadline",
-          "deadlines": {
-            "soft": "02-17-2023",
-            "hard": "02-18-2023"
-          }
-        }
-      ]
-    },
-    {
-      "role_id": "02",
-      "role_type": "Technical Chair",
-      "names": [
-        "def"
-      ],
-      "contact_info": "456",
-      "tasks": [
-        {
-          "task_id": "01",
-          "task_type": "Technical Review",
-          "is_flexible": "none",
-          "task_dependency": [
-            1,
-            2
-          ],
-          "task_created_date": "02-17-2023",
-          "task_description": "Technical Paper Review",
-          "task_notes": "contact paper presenter for technical review",
-          "deadlines": {
-            "soft": "02-18-2023",
-            "hard": "02-19-2023"
-          }
-        }
-      ]
-    },
-    {
-      "role_id": "03",
-      "role_type": "Finance Chair",
-      "names": [
-        "ghi"
-      ],
-      "contact_info": "789",
-      "tasks": [
-        {
-          "task_id": "01",
-          "task_type": "Financial Review1",
-          "is_flexible": "false",
-          "task_dependency": [
-            3,
-            4
-          ],
-          "task_created_date": "02-19-2023",
-          "task_description": "Financial Review1",
-          "task_notes": "decide and review the financial aspects of the conference",
-          "deadlines": {
-            "soft": "02-19-2023",
-            "hard": "02-20-2023"
-          }
-        },
-        {
-          "task_id": "02",
-          "task_type": "Financial Review2",
-          "is_flexible": "false",
-          "task_dependency": [
-            3,
-            4
-          ],
-          "task_created_date": "02-19-2023",
-          "task_description": "Financial Review2",
-          "task_notes": "and review the financial aspects of the conference",
-          "deadlines": {
-            "soft": "02-19-2023",
-            "hard": "02-20-2023"
-          }
-        }
-      ]
-    }
-  ];
+  const [ConferenceData, setConferenceData] = useState([]);
+  const conferenceId = ConferenceData.id;
 
-  console.log(dataRoles);
-  // const [Roles, setRoles] = useState(myData['roles']);
-  const [Roles, setRoles] = useState(dataRoles);
+  useEffect(() => {
+    axios({
+      method: 'get',
+      url: 'http://localhost:5000/conf',
+      responseType: 'json'
+    })
+      .then((response) => {
+        console.log(response.data.conf_data);
+        setConferenceData(response.data.conf_data[0])
+      });
+
+    // return () => {
+
+    // }
+  }, []);
 
 
-  const addNewTask = (role_id, task_id) => {
-    const newTaskData = {
-      task_id: Number,
-      task_type: String,
-      is_flexible: Boolean,
+  const addNewTaskToRole = async (role_id, taskData) => {
+
+    const newTaskObj = {
+      task_id: taskData.taskId,
+      task_type: taskData.taskType,
+      is_flexible: taskData.isFlexible,
       task_dependency: [],
-      task_created_date: Date,
-      task_description: String,
-      task_notes: String,
+      task_created_date: taskData.taskCreatedDdate,
+      task_description: taskData.taskDescription,
+      task_notes: taskData.taskNotes,
       deadlines: {
-        soft: Date,
-        hard: Date
+        soft: taskData.softDeadline,
+        hard: taskData.hardDeadline
       }
     };
-
-    const targetRoleIndex = Roles.findIndex((index) => index.id === role_id);
-    if (targetRoleIndex < 0) return;
-    const tempRoles = [...Roles];
-    tempRoles[targetRoleIndex].tasks.push(newTaskData);
-    setRoles(tempRoles);
+    try {
+      const postResponse = await axios.post(`http://localhost:5000/conf/addNewTask`,
+        {
+          conference_id: conferenceId,
+          role_id: role_id,
+          newTask: newTaskObj
+        }
+      );
+      setConferenceData(postResponse.data.conf_data[0]);
+    }
+    catch (error) {
+      console.error(error);
+    }
   };
 
-  const deleteTask = (task_id, role_id) => {
-    console.log(task_id, role_id);
-    const targetRoleIndex = Roles.findIndex((index) => index.role_id === role_id)
-    if (targetRoleIndex < 0) return;
-    console.log('targettasks', Roles[targetRoleIndex].tasks);
-    const targettaskId = Roles[targetRoleIndex].tasks.findIndex((index) => index.task_id === task_id);
-    if (targettaskId < 0) return;
+  const deleteTaskFromRole = async (task_id, role_id) => {
+    try {
+      const deleteResponse = await axios.post(`http://localhost:5000/conf/deleteTask`,
+        {
+          conference_id: conferenceId,
+          role_id: role_id,
+          task_id: task_id
+        }
+      );
+      console.log(deleteResponse);
+      setConferenceData(deleteResponse.data.conf_data[0]);
+    }
+    catch (error) {
+      console.error(error);
+    }
 
-    const tempRoles = [...Roles];
-    tempRoles[targetRoleIndex].tasks.splice(task_id, -1);
-    setRoles(tempRoles);
   };
 
-  const addNewRole = (newRole) => {
-    setRoles([...Roles, {
-      role_type: newRole,
-    }])
+  const addNewRole = async (roleType, rolePersonName) => {
+
+    if (ConferenceData?.roles) {
+
+      const existingRoles = ConferenceData.roles;
+
+      const newRole = {
+        role_id: (parseInt(existingRoles[existingRoles.length - 1].role_id) + 1).toString(),
+        role_type: roleType,
+        names: [rolePersonName],
+        contact_info: "",
+        tasks: [],
+      };
+
+      // const updatedRoles = [...existingRoles, newRole];
+
+
+      try {
+        const postResponse = await axios.post(`http://localhost:5000/conf/addNewRole`,
+          {
+            conference_id: conferenceId,
+            newRole
+          }
+        );
+        // console.log(postResponse);
+        setConferenceData(postResponse.data.conf_data[0]);
+      }
+      catch (error) {
+        console.error(error);
+      }
+    }
+
+    // setConferenceData([...ConferenceData, {
+    //   role_type: newRole,
+    // }]);
   };
 
-  const deleteRole = (role_id) => {
-    console.log('role_id==', role_id);
-    const tempRoles = Roles.filter((index) => index.role_id !== role_id.toString());
-    setRoles(tempRoles);
+  const deleteRole = async (role_id) => {
+    try {
+      const deleteResponse = await axios.post(`http://localhost:5000/conf/deleteRole`,
+        {
+          conference_id: conferenceId,
+          role_id
+        }
+      );
+      console.log(deleteResponse);
+      setConferenceData(deleteResponse.data.conf_data[0]);
+    }
+    catch (error) {
+      console.error(error);
+    }
+    // const tempRoles = ConferenceData.filter((index) => index.role_id !== role_id.toString());
+    // setConferenceData(tempRoles);
   };
 
 
   return (
     <div className="App">
-      <header className="App-header">
+      <header className="App_header">
         <div className="navBar">
           <h1>Conference Role Management</h1>
+          {/* <h3>{ConferenceData.conference_name}</h3> */}
         </div>
       </header>
-
       <div className="boardContainer">
+        <Timeline />
         <div className="boardOuter">
           {
-            Roles.map((cdata) => <BoardView
-              key={cdata.id}
-              data={cdata}
+            ConferenceData?.roles?.map((role) => <BoardView
+              key={role.role_id}
+              role_id={role.role_id}
+              data={role}
               deleteRole={deleteRole}
-              addNewTask={addNewTask}
-              deleteTask={deleteTask}
+              addNewTask={addNewTaskToRole}
+              deleteTask={deleteTaskFromRole}
             />)
           }
           <div className='addNewRoles'>
-            <AddNewRole onSubmit={(newRole) => addNewRole(newRole)} />
+            <AddNewRole onSubmit={(roleType, rolePersonName) => addNewRole(roleType, rolePersonName)} />
           </div>
         </div>
       </div>

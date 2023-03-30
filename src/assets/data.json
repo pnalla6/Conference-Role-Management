@@ -2,8 +2,8 @@
     "conference_name": "conf1",
     "conference_type": "technical",
     "created_date": "02-16-2023",
-    "conference_date": "02-21-2023", 
-    "hard_deadline": "02-23-2023", 
+    "conference_date": "02-21-2023",
+    "hard_deadline": "02-23-2023",
     "roles_assignment": [
         {
             "General_chair": [
@@ -36,7 +36,7 @@
     ],
     "roles": [
         {
-            "role_id" : "01",
+            "role_id": "01",
             "role_type": "General Chair",
             "names": [
                 "abc"
@@ -64,7 +64,7 @@
             ]
         },
         {
-            "role_id" : "02",
+            "role_id": "02",
             "role_type": "Technical Chair",
             "names": [
                 "def"
@@ -90,7 +90,7 @@
             ]
         },
         {
-            "role_id" : "03",
+            "role_id": "03",
             "role_type": "Finance Chair",
             "names": [
                 "ghi"
