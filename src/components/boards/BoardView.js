@@ -41,7 +41,9 @@ function BoardView(props) {
                         task_id={task.task_id}
                         roleID={props?.data?.role_id}
                         data={task}
-                        deleteTask={props.deleteTask} />
+                        deleteTask={props.deleteTask}
+                        handleDragEnter={props.handleDragEnter}
+                        handleDragEnd={props.handleDragEnd} />
                 ))}
                 <AddNewTask
                     role_id={props.role_id}

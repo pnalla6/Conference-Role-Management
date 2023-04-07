@@ -4,6 +4,8 @@ import BoardView from './components/boards/BoardView';
 import AddNewRole from './components/roles/AddNewRole';
 // import myData from './assets/data.json';
 import Timeline from './components/timeline/Timeline';
+import { MoreHorizontal } from 'react-feather'
+
 
 import axios from 'axios';
 
@@ -11,6 +13,7 @@ import axios from 'axios';
 function App() {
   const [ConferenceData, setConferenceData] = useState([]);
   const conferenceId = ConferenceData.id;
+  const filename = 'conf_export.json';
 
   useEffect(() => {
     axios({
@@ -78,11 +81,8 @@ function App() {
   };
 
   const addNewRole = async (roleType, rolePersonName) => {
-
     if (ConferenceData?.roles) {
-
       const existingRoles = ConferenceData.roles;
-
       const newRole = {
         role_id: (parseInt(existingRoles[existingRoles.length - 1].role_id) + 1).toString(),
         role_type: roleType,
@@ -90,10 +90,6 @@ function App() {
         contact_info: "",
         tasks: [],
       };
-
-      // const updatedRoles = [...existingRoles, newRole];
-
-
       try {
         const postResponse = await axios.post(`http://localhost:5000/conf/addNewRole`,
           {
@@ -101,17 +97,12 @@ function App() {
             newRole
           }
         );
-        // console.log(postResponse);
         setConferenceData(postResponse.data.conf_data[0]);
       }
       catch (error) {
         console.error(error);
       }
     }
-
-    // setConferenceData([...ConferenceData, {
-    //   role_type: newRole,
-    // }]);
   };
 
   const deleteRole = async (role_id) => {
@@ -133,6 +124,66 @@ function App() {
   };
 
 
+  // DragEvent Functions 
+  const [sourceRoleDrag, setSourceRoleDrag] = useState();
+  const [targetRoleDrag, setTargetRoleDrag] = useState();
+
+  const handleDragEnter = async (role_id, task_id) => {
+    setTargetRoleDrag({ role_id, task_id });
+
+    // try {
+    //   const deleteResponse = await axios.post(`http://localhost:5000/conf/dragEnter`,
+    //     {
+    //       conference_id: conferenceId,
+    //       role_id: role_id,
+    //       task_id: task_id
+    //     }
+    //   );
+    //   console.log(deleteResponse);
+    //   setConferenceData(deleteResponse.data.conf_data[0]);
+    // }
+    // catch (error) {
+    //   console.error(error);
+    // }
+
+  }
+
+  const handleDragEnd = async (role_id, task_id) => {
+    setSourceRoleDrag({ role_id, task_id });
+    console.log(conferenceId);
+    console.log(sourceRoleDrag.role_id, sourceRoleDrag.task_id);
+    // console.log(targetRoleDrag.role_id, targetRoleDrag.task_id);
+
+    try {
+      const deleteResponse = await axios.post(`http://localhost:5000/conf/dragEnter`,
+        {
+          conference_id: conferenceId,
+          source_role_id: sourceRoleDrag.role_id,
+          source_task_id: sourceRoleDrag.task_id,
+          target_role_id: targetRoleDrag.role_id,
+          // target_task_id: targetRoleDrag.task_id
+        }
+      );
+      console.log(deleteResponse);
+      setConferenceData(deleteResponse.data.conf_data[0]);
+    }
+    catch (error) {
+      console.error(error);
+    }
+  }
+
+  // Export Conference Data as json
+  const handleSaveToPC = (jsonData, filename) => {
+    const fileData = JSON.stringify(jsonData);
+    const blob = new Blob([fileData], { type: "text/plain" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.download = `${filename}.json`;
+    link.href = url;
+    link.click();
+  }
+
+
   return (
     <div className="App">
       <header className="App_header">
@@ -140,6 +191,7 @@ function App() {
           <h1>Conference Role Management</h1>
           {/* <h3>{ConferenceData.conference_name}</h3> */}
         </div>
+        <MoreHorizontal onClick={() => { handleSaveToPC(ConferenceData, filename); }} />
       </header>
       <div className="boardContainer">
         <Timeline />
@@ -152,6 +204,8 @@ function App() {
               deleteRole={deleteRole}
               addNewTask={addNewTaskToRole}
               deleteTask={deleteTaskFromRole}
+              handleDragEnter={handleDragEnter}
+              handleDragEnd={handleDragEnd}
             />)
           }
           <div className='addNewRoles'>

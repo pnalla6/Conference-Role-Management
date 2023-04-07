@@ -6,8 +6,17 @@
   flex-direction: column;
 }
 .App_header {
-  margin: auto;
   margin-bottom: 1rem;
+  display: flex;
+  flex-direction: row;
+  /* margin: auto; */
+}
+.App_header > .navBar {
+  margin: auto;
+}
+
+.App_header > svg {
+  cursor: pointer;
 }
 
 .boardContainer {
@@ -24,7 +33,7 @@
   display: flex;
   min-width: fit-content;
   gap: 30px;
-  padding: 20px;
+  padding: 5px;
   padding-bottom: 0.6rem;
 }
 

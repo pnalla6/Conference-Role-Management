@@ -5,6 +5,11 @@
     padding: 10px;
     border-radius: 5px;
     background-color: #fff;
+    transition: 100ms ease-in-out;
+}
+
+.card:hover{
+    transform: scale(1.01);
 }
 
 .card_top {
@@ -51,6 +56,13 @@
 .card_top_more {
     position: relative;
     cursor: pointer;
+    transition: 200ms ease-in-out;
+}
+
+.card_top_more:hover > svg{
+    /* position: relative; */
+    cursor: pointer;
+    transform: scale(1.2);
 }
 
 .card_dropdown {

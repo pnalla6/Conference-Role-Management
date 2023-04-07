@@ -12,9 +12,9 @@ function CardView(props) {
         <>
             {showCardModal && <NewCardModal onClose={() => { setShowCardModal(false) }} />}
             <div className='card'
-            draggable
-            // onDragEnter={}
-            // onDragEnd={}
+                draggable
+                onDragEnter={() => props.handleDragEnter(props?.roleID, props?.data?.task_id)}
+                onDragEnd={() => props.handleDragEnd(props?.roleID, props?.data?.task_id)}
             // onClick={(e) => { e.stopPropagation(); setShowCardModal(true) }}
             >
 
