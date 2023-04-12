@@ -8,12 +8,11 @@ import Dropdown from '../dropdown/Dropdown';
 function BoardView(props) {
     const [showDropdown, setShowDropdown] = useState(false);
 
-    // Sort tasks based on their deadline
-    const sortedTasks = [...props?.data?.tasks].sort((task1, task2) => {
-        if (task1.deadlines.hard > task2.deadlines.hard) {
+    const sortedTasks = Object.values(props?.data?.tasks || {}).sort((task1, task2) => {
+        if (task1?.deadlines?.hard < task2?.deadlines?.hard) {
             return -1;
         }
-        if (task1.deadlines.hard < task2.deadlines.hard) {
+        if (task1?.deadlines?.hard > task2?.deadlines?.hard) {
             return 1;
         }
         return 0;
@@ -43,8 +42,11 @@ function BoardView(props) {
                         data={task}
                         deleteTask={props.deleteTask}
                         handleDragEnter={props.handleDragEnter}
-                        handleDragEnd={props.handleDragEnd} />
+                        handleDragEnd={props.handleDragEnd}
+                    />
                 ))}
+
+
                 <AddNewTask
                     role_id={props.role_id}
                     addNewTaskToRole={props.addNewTask}

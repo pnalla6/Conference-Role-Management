@@ -1,29 +1,30 @@
-import React, { useRef } from 'react';
-import { Type, List, Calendar, AlertOctagon, AlertTriangle, X } from 'react-feather';
+import React, { useState } from 'react';
+// import { Type, List, Calendar, AlertOctagon, AlertTriangle, X } from 'react-feather';
 import AddTaskModal from '../../tasks/taskModal/AddTaskModal';
-import './NewCardModal.css';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { Box, Button, Checkbox, Container, CssBaseline, FormControlLabel, Grid, Link, TextField, Typography } from '@mui/material';
+// import Container from '@mui/material/Container';
+
+const theme = createTheme();
 
 function NewCardModal(props) {
-    const taskTitleRef = useRef();
-    const taskTypeRef = useRef();
-    const taskDescriptionRef = useRef();
-    const taskNotesRef = useRef();
-    const isFlexibleRef = useRef();
-    const hardDeadlineRef = useRef();
-    const softDeadlineRef = useRef();
+    const [isFlexibleCheckBox, setIsFlexible] = useState(false);
+    const [hardDeadlineDate, setHardDeadline] = useState(null);
+    const [softDeadlineDate, setSoftdDeadline] = useState(null);
 
-    const handleSaveClick = () => {
-        const taskTitle = taskTitleRef.current.value;
-        const taskType = taskTypeRef.current.value;
-        const taskDescription = taskDescriptionRef.current.value;
-        const taskNotes = taskNotesRef.current.value;
-        const isFlexible = isFlexibleRef.current.value;
-        const hardDeadline = hardDeadlineRef.current.value;
-        const softDeadline = softDeadlineRef.current.value;
+    const handleSaveClick = (event) => {
+        event.preventDefault();
+        const data = new FormData(event.currentTarget);
+
+        const taskType = data.get('task_type');
+        const taskDescription = data.get('task_description');
+        const taskNotes = data.get('task_notes');
+        const isFlexible = isFlexibleCheckBox;
+        const hardDeadline = hardDeadlineDate;
+        const softDeadline = softDeadlineDate;
         const taskCreatedDdate = new Date().toISOString();
 
         const taskObj = {
-            taskTitle,
             taskType,
             taskDescription,
             taskNotes,
@@ -33,86 +34,91 @@ function NewCardModal(props) {
             taskCreatedDdate
         }
 
-        props.addNewTaskToRole(props.role_id, taskObj);
-        // console.log('addnewTask', props.role_id);
+        console.log(taskObj);
+        props.addNewTaskToRole(props.role_id, taskObj).then(() => {
+            props.onClose();
+        });
     };
 
     return (
         <AddTaskModal onClose={() => { props.onClose() }}>
-            <div className='task_top_More'  onClick={(e) => { props.onClose() }}><X /></div>
-            <div className='taskInfo'>
-                <div className='taskInfo_box'>
-                    <div className='taskInfo_box_title'>
-                        <Type />
-                        <p>Title</p>
-                    </div>
-                    <div className='taskInfo_box_body'>
-                        <input placeholder={'Task Title Here'} ref={taskTitleRef} />
-                    </div>
-                </div>
+            <ThemeProvider theme={theme}>
+                <Container component="main" maxWidth="xs">
+                    <CssBaseline />
+                    <Box
+                        sx={{
+                            marginTop: 1,
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                            justifyContent: 'center'
+                        }}
+                    >
+                        <Typography component="h1" variant="h6">
+                            Sign in
+                        </Typography>
+                        <Box component="form" onSubmit={handleSaveClick} noValidate sx={{ mt: 0, display: 'grid' }}>
+                            <TextField
+                                size='small'
+                                margin="normal"
+                                required
+                                id="task_type"
+                                label="Task Type"
+                                name="task_type"
+                                autoFocus
+                                autoComplete="off"
+                            // fullWidth
+                            />
+                            <TextField
+                                size='small'
+                                margin="normal"
+                                required
+                                name="task_description"
+                                label="Task Description"
+                                type="task_description"
+                                id="task_description"
+                                autoComplete="off"
+                            // fullWidth
+                            />
+                            <TextField
+                                size='small'
+                                margin="normal"
+                                required
+                                name="task_notes"
+                                label="Task Notes"
+                                type="task_notes"
+                                id="task_notes"
+                                autoComplete="off"
+                            // fullWidth
+                            />
+                            <FormControlLabel
+                                sx={{ display: 'block' }}
+                                value='is_flexible'
+                                control={<Checkbox size='small' onChange={() => { setIsFlexible(!isFlexibleCheckBox) }} color="primary" />}
+                                label="Is Flexible"
+                            />
+                            <FormControlLabel
+                                control={<TextField size='small' sx={{ ml: 1.5, mr: 1, mb: 1 }} onChange={(e) => { setSoftdDeadline(e.currentTarget.value) }} id='soft_deadline' type='date' color="primary" />}
+                                label="Soft Deadline"
+                            />
+                            <FormControlLabel
+                                control={<TextField size='small' sx={{ ml: 1.5, mr: 1 }} onChange={(e) => { setHardDeadline(e.currentTarget.value) }} id='hard_deadline' type='date' color="primary" />}
+                                label="Hard Deadline"
+                            />
 
-                <div className='taskInfo_box'>
-                    <div className='taskInfo_box_title'>
-                        <Type />
-                        <p>Task Type</p>
-                    </div>
-                    <div className='taskInfo_box_body'>
-                        <input placeholder={'Enter Task Type'} ref={taskTypeRef} />
-                    </div>
-                </div>
-
-                <div className='taskInfo_box'>
-                    <div className='taskInfo_box_title'>
-                        <List />
-                        <p>Description</p>
-                    </div>
-                    <div className='taskInfo_box_body'>
-                        <input placeholder={'Task Description Here'} ref={taskDescriptionRef} />
-                    </div>
-                </div>
-
-                <div className='taskInfo_box'>
-                    <div className='taskInfo_box_title'>
-                        <Calendar />
-                        <p>Notes</p>
-                    </div>
-                    <input placeholder={'Task Notes'} ref={taskNotesRef} />
-                </div>
-
-                <div className='taskInfo_box'>
-                    <div className='taskInfo_box_title'>
-                        <Calendar />
-                        <p>Flexible</p>
-                    </div>
-                    <select name="is_flexible" id="is_flexible" ref={isFlexibleRef}>
-                        <option value="" selected disabled hidden>Select an option</option>
-                        <option value="true">Yes</option>
-                        <option value="false">No</option>
-                    </select>
-                </div>
-
-                <div className='taskInfo_box'>
-                    <div className='taskInfo_box_title'>
-                        <AlertTriangle />
-                        <p>Hard Deadline</p>
-                    </div>
-                    <div className='taskInfo_box_body'>
-                        <input type='date' ref={hardDeadlineRef} />
-                    </div>
-                </div>
-                <div className='taskInfo_box'>
-                    <div className='taskInfo_box_title'>
-                        <AlertOctagon />
-                        <p>Soft Deadline</p>
-                    </div>
-                    <div className='taskInfo_box_body'>
-                        <input type='date' ref={softDeadlineRef} />
-                    </div>
-                </div>
-                <div className='taskInfo_box_btn'>
-                    <button onClick={() => { handleSaveClick(); }}>Save</button>
-                </div>
-            </div>
+                            <Button
+                                type="submit"
+                                // fullWidth
+                                variant="outlined"
+                                color="secondary"
+                                sx={{ display: 'block', margin: 'auto', mt: 3, mb: 2 }}
+                            >
+                                Add Task
+                            </Button>
+                        </Box>
+                    </Box>
+                </Container>
+            </ThemeProvider>
         </AddTaskModal>
     )
 }

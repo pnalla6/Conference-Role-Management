@@ -4,6 +4,7 @@
     flex-direction: column;
     height: 100%;
     padding-top: 1.5rem;
+    padding-bottom: 0.6rem;
 }
 .timelineVertical > .lineParent > .line {
     border-left: 0.5rem dotted green;
