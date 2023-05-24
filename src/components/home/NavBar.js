@@ -24,7 +24,6 @@ function NavBar(props) {
     const [anchorElUser, setAnchorElUser] = React.useState(null);
     const { logOutUser } = useAuth();
     const navigate = useNavigate();
-
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
     };
@@ -75,6 +74,7 @@ function NavBar(props) {
 
     return (
         <AppBar position="static" sx={{
+            height:'3.3rem',
             backgroundColor: 'darkslateblue',
             boxShadow: '0px 1px 2px -1px rgba(0,0,0,0.1),0px 2px 2.5px 0px rgba(0,0,0,0.07),0px 1px 5px 0px rgba(0,0,0,0.06)',
             // boxShadow: 'none',
@@ -85,7 +85,7 @@ function NavBar(props) {
                         variant="h6"
                         noWrap
                         component="a"
-                        href="/"
+                        href="#"
                         sx={{
                             mr: 2,
                             display: { xs: 'none', md: 'flex' },
@@ -96,7 +96,7 @@ function NavBar(props) {
                             textDecoration: 'none',
                         }}
                     >
-                        CRM App
+                        {props?.conferenceName || 'CRM APP'}
                     </Typography>
 
                     {/* <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -151,7 +151,7 @@ function NavBar(props) {
                             textDecoration: 'none',
                         }}
                     >
-                        CRM App
+                        {props?.conferenceName || 'CRM APP'}
                     </Typography>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                         {/* {pages.map((page) => (
@@ -191,7 +191,7 @@ function NavBar(props) {
                             onClose={handleCloseUserMenu}
                         >
                             {settings.map((setting) => (
-                                <MenuItem key={setting} onClick={() => { handleCloseUserMenu(setting) }}>
+                                <MenuItem key={setting} onClick={() => { handleCloseUserMenu(setting); handleSetting(setting) }}>
                                     <Typography textAlign="center" onClick={() => { handleSetting(setting) }}>{setting}</Typography>
                                 </MenuItem>
                             ))}

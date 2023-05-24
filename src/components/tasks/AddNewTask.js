@@ -11,10 +11,11 @@ function AddNewTask(props) {
 
             {showAddNewTask
                 ?
-                <NewCardModal 
-                role_id = {props.role_id}
-                addNewTaskToRole={props.addNewTaskToRole} 
-                onClose={() => { setShowAddNewTask(false) }}/>
+                <NewCardModal
+                    getAllTasks={props.getAllTasks}
+                    role_id={props.role_id}
+                    addNewTaskToRole={props.addNewTaskToRole}
+                    onClose={() => { setShowAddNewTask(false) }} />
                 // <form className='addTaskForm' onSubmit={(e) => { e.preventDefault(); if (props.onSubmit) props.onSubmit(newTaskTitle); }}>
                 //     <input value={newTaskTitle} type="text" placeholder={props.placeholder} autoFocus={true} onChange={(e) => { setNewTaskTitle(e.target.value); }} />
                 //     <div className='addTaskFormFooter'>
@@ -23,7 +24,7 @@ function AddNewTask(props) {
                 //     </div>
                 // </form>
                 :
-                <p className='addTaskButton' style={{ cursor: "pointer" }} onClick={(e) => { e.stopPropagation(); setShowAddNewTask(true);}}>Add New Task</p>
+                <p className='addTaskButton' style={{ cursor: "pointer" }} onClick={(e) => { e.stopPropagation(); setShowAddNewTask(true); }}>Add New Task</p>
             }
         </div>
     )

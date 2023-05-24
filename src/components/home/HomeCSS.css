@@ -33,7 +33,7 @@
     display: flex;
     min-width: fit-content;
     gap: 30px;
-    padding: 5px;
+    padding: 0.45rem 0 0 0.3rem;
     padding-bottom: 0.6rem;
   }
   

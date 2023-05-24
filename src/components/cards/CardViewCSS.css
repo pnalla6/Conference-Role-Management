@@ -1,9 +1,9 @@
 .card {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 0;
     padding: 10px;
-    border-radius: 5px;
+    border-radius: 0.3rem;
     background-color: #fff;
     transition: 100ms ease-in-out;
 }
@@ -59,10 +59,17 @@
     transition: 200ms ease-in-out;
 }
 
-.card_top_more:hover > svg{
+.card_top_more > .card_top_more_edit:hover{
     /* position: relative; */
     cursor: pointer;
-    transform: scale(1.2);
+    /* transform: scale(1.2); */
+    fill: #E4A11B;
+}
+.card_top_more > .card_top_more_delete:hover{
+    /* position: relative; */
+    cursor: pointer;
+    /* transform: scale(1.2); */
+    fill: #DC4C64;
 }
 
 .card_dropdown {
@@ -71,4 +78,14 @@
     padding: 5px;
     border-radius: 3px;
     box-shadow: 1px 0px 10px rgba(0, 0, 0, 0.5);
+}
+
+.checked {
+    font-weight: bold;
+    color: green;
+    stroke-width: 8;
+}
+
+.task-dependency{
+    border: 2px solid #F73D93;
 }

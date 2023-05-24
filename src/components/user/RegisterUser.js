@@ -176,7 +176,7 @@ function RegisterUser() {
                             fullWidth
                             name="confirmpassword"
                             label="Confirm Password"
-                            type="confirmpassword"
+                            type="password"
                             id="confirmpassword"
                             autoComplete="current-confirmpassword"
                             helperText={confirmPasswordError ? 'passwords do not match!' : ''}
