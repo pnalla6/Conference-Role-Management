@@ -1,0 +1,55 @@
+.addNewRole {
+    width: 100%;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 1px 2px 0 1px rgba(0, 0, 0, 0.15);
+}
+
+.addNewRoleButton {
+    background-color: #f8f8f8;
+    border-radius: 3px;
+    padding: 10px;
+    text-align: center;
+    cursor: default;
+}
+.addNewRoleButton:hover {
+    background-color: #ccc;
+}
+
+.addNewRoleForm {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.addNewRoleForm > input {
+    border-radius: 3px;
+    outline: none;
+    border: 1px solid cyan;
+    padding: 10px;
+    font-size: 1rem;
+}
+
+.addNewRoleForm > .addNewRoleFormFooter {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.addNewRoleForm > .addNewRoleFormFooter > button {
+    outline: none;
+    border: none;
+    color: #fff;
+    background-color: cyan;
+    padding: 8px 16px;
+    border-radius: 5px;
+    transition: 200ms;
+    cursor: pointer;
+}
+
+.addNewRoleForm > .addNewRoleFormFooter > button {
+    background-color: darkcyan;
+}
+
+.addNewRoleForm > .addNewRoleFormFooter > svg {
+    cursor: pointer;
+}

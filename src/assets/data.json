@@ -1,0 +1,135 @@
+{
+    "conference_name": "conf1",
+    "conference_type": "technical",
+    "created_date": "02-16-2023",
+    "conference_date": "02-21-2023",
+    "hard_deadline": "02-23-2023",
+    "roles_assignment": [
+        {
+            "General_chair": [
+                "01"
+            ],
+            "financial_chair": [
+                "02"
+            ]
+        }
+    ],
+    "names": [
+        {
+            "id": "01",
+            "name": {
+                "first_name": "",
+                "last_name": "",
+                "email": "",
+                "phone": ""
+            }
+        },
+        {
+            "id": "02",
+            "name": {
+                "first_name": "",
+                "last_name": "",
+                "email": "",
+                "phone": ""
+            }
+        }
+    ],
+    "roles": [
+        {
+            "role_id": "01",
+            "role_type": "General Chair",
+            "names": [
+                "abc"
+            ],
+            "contact_info": "123",
+            "tasks": [
+                {
+                    "task_id": "01",
+                    "task_type": "Review",
+                    "is_flexible": "true",
+                    "task_dependency": [
+                        1,
+                        2,
+                        3,
+                        4
+                    ],
+                    "task_created_date": "02-16-2023",
+                    "task_description": "Some General Paper Review",
+                    "task_notes": "contact financial chair for advice before deadline",
+                    "deadlines": {
+                        "soft": "02-17-2023",
+                        "hard": "02-18-2023"
+                    }
+                }
+            ]
+        },
+        {
+            "role_id": "02",
+            "role_type": "Technical Chair",
+            "names": [
+                "def"
+            ],
+            "contact_info": "456",
+            "tasks": [
+                {
+                    "task_id": "01",
+                    "task_type": "Technical Review",
+                    "is_flexible": "none",
+                    "task_dependency": [
+                        1,
+                        2
+                    ],
+                    "task_created_date": "02-17-2023",
+                    "task_description": "Technical Paper Review",
+                    "task_notes": "contact paper presenter for technical review",
+                    "deadlines": {
+                        "soft": "02-18-2023",
+                        "hard": "02-19-2023"
+                    }
+                }
+            ]
+        },
+        {
+            "role_id": "03",
+            "role_type": "Finance Chair",
+            "names": [
+                "ghi"
+            ],
+            "contact_info": "789",
+            "tasks": [
+                {
+                    "task_id": "01",
+                    "task_type": "Financial Review1",
+                    "is_flexible": "false",
+                    "task_dependency": [
+                        3,
+                        4
+                    ],
+                    "task_created_date": "02-19-2023",
+                    "task_description": "Financial Review1",
+                    "task_notes": "decide and review the financial aspects of the conference",
+                    "deadlines": {
+                        "soft": "02-19-2023",
+                        "hard": "02-20-2023"
+                    }
+                },
+                {
+                    "task_id": "02",
+                    "task_type": "Financial Review2",
+                    "is_flexible": "false",
+                    "task_dependency": [
+                        3,
+                        4
+                    ],
+                    "task_created_date": "02-19-2023",
+                    "task_description": "Financial Review2",
+                    "task_notes": "and review the financial aspects of the conference",
+                    "deadlines": {
+                        "soft": "02-19-2023",
+                        "hard": "02-20-2023"
+                    }
+                }
+            ]
+        }
+    ]
+}

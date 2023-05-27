@@ -1,0 +1,70 @@
+.card {
+    display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f8f8f8;
+  color: #333;
+  transition: all 0.3s ease-in-out;
+  }
+  
+  .card:hover {
+    transform: scale(1.02);
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card_top {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .card_top_label {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    gap: 5px;
+  }
+  
+  .card_title {
+    font-weight: bold;
+  }
+  
+  .card_footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .card_footer > p {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  
+  .card_footer > p > svg {
+    width: 1rem;
+    height: 1rem;
+    fill: #888;
+  }
+  
+  .card_dropdown {
+    background-color: #fff;
+    width: 120px;
+    padding: 8px;
+    border-radius: 4px;
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
+  }
+  
+  .checked {
+    font-weight: bold;
+    color: green;
+    stroke-width: 2;
+  }
+  
+  .task-dependency {
+    border: 2px solid #f73d93;
+  }
+  

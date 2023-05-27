@@ -1,0 +1,74 @@
+.board {
+    min-width: 260px;
+    max-height: 98%;
+    height: 98%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 8px;
+    border-radius: 0.5rem;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.top {
+    display: flex;
+    align-items: center;
+    background-color: #1c6ea4;
+    padding: 8px;
+    color: #fff;
+}
+
+.roleTitle {
+    flex: 1;
+    font-weight: bold;
+}
+
+.cards {
+    height: 100%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 8px;
+    background-color: #f2f2f2;
+    overflow-y: auto;
+}
+
+.board_top_more {
+    position: relative;
+    cursor: pointer;
+}
+
+.board_top_more > .board_top_more_edit:hover {
+    cursor: pointer;
+    fill: #e4a11b;
+}
+.board_top_more > .board_top_more_delete:hover {
+    cursor: pointer;
+    fill: #dc4c64;
+}
+
+.board_dropdown {
+    background-color: #fff;
+    width: 130px;
+    padding: 10px;
+    border-radius: 3px;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.custom-scroll::-webkit-scrollbar {
+    width: 8px;
+    background-color: #f2f2f2;
+}
+
+.custom-scroll::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: #ccc;
+}
+
+.custom-scroll::-webkit-scrollbar-thumb:hover {
+    background-color: #aaa;
+}
+
+.custom-scroll::-webkit-scrollbar-track {
+    background-color: #f2f2f2;
+}
