@@ -7,11 +7,11 @@ function PrivateRoutes() {
     const { currentUser } = useAuth();
     
     if (currentUser && location.pathname === '/') {
-        return <Navigate to="/dashboard" />
+        return <Navigate to="/home" />
     }
 
     return (
-        currentUser ? <Outlet /> : <Navigate to="/login" />
+        currentUser ? <Outlet /> : <Navigate to="/home" />
     )
 }
 

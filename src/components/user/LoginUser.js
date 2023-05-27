@@ -18,6 +18,7 @@ import { Alert } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useAuth } from './AuthProvider';
 import { Link, useNavigate } from 'react-router-dom';
+import NavBar from '../home/NavBar';
 
 
 // function Copyright(props) {
@@ -100,6 +101,7 @@ function LoginUser() {
 
     return (
         <ThemeProvider theme={theme}>
+            <NavBar />
             <Container component="main" maxWidth="xs">
                 <CssBaseline />
                 <Box

@@ -1,23 +1,23 @@
-import React from 'react';
-import './Timeline.css';
+import React, { useState } from 'react';
 import moment from 'moment';
-
+import './Timeline.css';
 function Timeline(props) {
-    const datetimeCreated = moment(props?.conferenceDates?.conference_created);
-    const confCreatedDate = datetimeCreated.format('MMMM Do');
-
-    const datetimeDeadline = moment(props?.conferenceDates?.conference_deadline);
-    const confDeadlineDate = datetimeDeadline.format('MMMM Do');
-
+    const { conferenceDates } = props;
+    const allRoles = conferenceDates?.roles || {};
+  
+    const allTasks = Object.values(allRoles).flatMap(role => Object.values(role.tasks || {}));
+    const sortedTasks = allTasks.sort((a, b) => new Date(a.deadlines.hard) - new Date(b.deadlines.hard));
+  
     return (
-        <div className='timelineVertical'>
-            <code style={{ fontSize: "0.8rem", fontWeight: 'bold' }} className='startDate'>{confCreatedDate}</code>
-            <div className='lineParent'>
-                <div className='line'></div>
-            </div>
-            <code style={{ fontSize: "0.8rem", fontWeight: 'bold' }} className='endDate'>{confDeadlineDate}</code>
-        </div>
-    )
-}
-
-export default Timeline
+      <div className='timelineVertical'>
+        {sortedTasks.map((task, i) => (
+          <div key={i} className='task-dot'>
+            <div className='task-tooltip'>{task.task_description}</div>
+          </div>
+        ))}
+      </div>
+    );
+  }
+  
+  export default Timeline;
+  

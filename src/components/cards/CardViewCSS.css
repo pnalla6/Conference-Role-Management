@@ -1,91 +1,70 @@
 .card {
     display: flex;
-    flex-direction: column;
-    gap: 0;
-    padding: 10px;
-    border-radius: 0.3rem;
-    background-color: #fff;
-    transition: 100ms ease-in-out;
-}
-
-.card:hover{
-    transform: scale(1.01);
-}
-
-.card_top {
+  flex-direction: column;
+  gap: 10px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f8f8f8;
+  color: #333;
+  transition: all 0.3s ease-in-out;
+  }
+  
+  .card:hover {
+    transform: scale(1.02);
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card_top {
     display: flex;
-    gap: 5px;
-}
-
-.card_top_label {
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .card_top_label {
     display: flex;
     flex: 1;
-    gap: 10px;
-}
-
-.card_top > svg {
-    opacity: 0;
-    transition: 200ms;
-}
-
-.card:hover > .card_top > svg {
-    opacity: 1;
-}
-
-.card_title {
+    align-items: center;
+    gap: 5px;
+  }
+  
+  .card_title {
     font-weight: bold;
-}
-
-.card_footer {
+  }
+  
+  .card_footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
-
-.card_footer > p {
+  }
+  
+  .card_footer > p {
     display: flex;
-    gap: 5px;
     align-items: center;
-}
-
-.card_footer > p > svg {
+    gap: 5px;
+  }
+  
+  .card_footer > p > svg {
     width: 1rem;
     height: 1rem;
-}
-
-.card_top_more {
-    position: relative;
-    cursor: pointer;
-    transition: 200ms ease-in-out;
-}
-
-.card_top_more > .card_top_more_edit:hover{
-    /* position: relative; */
-    cursor: pointer;
-    /* transform: scale(1.2); */
-    fill: #E4A11B;
-}
-.card_top_more > .card_top_more_delete:hover{
-    /* position: relative; */
-    cursor: pointer;
-    /* transform: scale(1.2); */
-    fill: #DC4C64;
-}
-
-.card_dropdown {
+    fill: #888;
+  }
+  
+  .card_dropdown {
     background-color: #fff;
-    width: 90px;
-    padding: 5px;
-    border-radius: 3px;
-    box-shadow: 1px 0px 10px rgba(0, 0, 0, 0.5);
-}
-
-.checked {
+    width: 120px;
+    padding: 8px;
+    border-radius: 4px;
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
+  }
+  
+  .checked {
     font-weight: bold;
     color: green;
-    stroke-width: 8;
-}
-
-.task-dependency{
-    border: 2px solid #F73D93;
-}
+    stroke-width: 2;
+  }
+  
+  .task-dependency {
+    border: 2px solid #f73d93;
+  }
+  
