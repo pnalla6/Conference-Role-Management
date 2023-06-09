@@ -47,7 +47,7 @@
   .card_footer > p > svg {
     width: 1rem;
     height: 1rem;
-    fill: #888;
+    /* fill: #888; */
   }
   
   .card_dropdown {
@@ -61,10 +61,24 @@
   .checked {
     font-weight: bold;
     color: green;
-    stroke-width: 2;
+    stroke-width: 6;
   }
   
-  .task-dependency {
+  .task-active{
+    border: 2px solid lightblue;
+  }
+  .task-dependency-active {
     border: 2px solid #f73d93;
   }
-  
+
+  .card.task-inactive {
+    opacity: 0.2;
+    pointer-events: none;
+  }
+
+  .card_top_more_edit:hover{
+    color: #e4a11b;
+  }
+  .card_top_more_delete:hover{
+    color: #dc4c64;
+  }

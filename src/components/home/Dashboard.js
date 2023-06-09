@@ -6,8 +6,9 @@ import { Link } from 'react-router-dom';
 import NavBar from './NavBar';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useAuth } from '../user/AuthProvider';
-import { ref, onValue, push, set } from 'firebase/database';
+import { ref, onValue, push, set, remove } from 'firebase/database';
 import { crmdatabase } from '../../Firebase';
+import ClearIcon from '@mui/icons-material/Clear';
 
 const Item = styled(Box)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -39,6 +40,7 @@ function CreateNewConferenceBoard(props) {
     const handleConferenceDeadline = (event) => {
         setConferenceDeadline(event.target.value);
     };
+
 
     const handleCreate = () => {
         if (conferenceName.trim() === '') {
@@ -141,6 +143,22 @@ function Dashboard() {
         setOpen(false);
     };
 
+     // delete a conference 
+     const deleteConference = (conferenceId) => {
+        // Show a confirmation dialog before deleting
+        if (window.confirm('Are you sure you want to delete this conference?')) {
+            const conferenceRef = ref(crmdatabase, `conferences/${currentUser.uid}/conferences/${conferenceId}`);
+            remove(conferenceRef)
+                .then(() => {
+                    console.log("Conference removed successfully");
+                })
+                .catch((error) => {
+                    console.error("Failed to remove conference:", error);
+                });
+        }
+    }
+
+
     return (
         <>
             <ThemeProvider theme={theme}>
@@ -150,10 +168,24 @@ function Dashboard() {
                         <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
                             {userConferencesList ? userConferencesList?.map((conference, index) => (
                                 <Grid item xs={2} sm={4} md={4} key={index}>
-                                    <Link style={{ textDecoration: 'none', fontWeight: 'bold' }} to={`/conference/${conference.conference_id}`}>
-                                        <Item sx={{ cursor: 'pointer', ':hover': { textDecoration: 'underline', color: '#ef476f' } }}>{conference.conference_name}</Item>
-                                    </Link>
+                                    <Box sx={{ position: 'relative', textDecoration: 'none', fontWeight: 'bold' }}>
+                                        <Link to={`/conference/${conference.conference_id}`}>
+                                            <Item sx={{ cursor: 'pointer', ':hover': { textDecoration: 'underline', color: '#ef476f' } }}>
+                                                {conference.conference_name}
+                                            </Item>
+                                        </Link>
+                                        <ClearIcon
+                                            sx={{ position: 'absolute', top: '50%', right: 0, transform: 'translateY(-50%)', cursor: 'pointer' }}
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                e.preventDefault();
+                                                // add your delete function here
+                                                deleteConference(conference?.conference_id);
+                                            }}
+                                        />
+                                    </Box>
                                 </Grid>
+
 
                             )) : <Grid item xs={2} sm={4} md={4} >
                                 <Item sx={{ cursor: 'pointer' }}>No Conferences yet!</Item>

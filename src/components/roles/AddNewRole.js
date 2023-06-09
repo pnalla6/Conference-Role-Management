@@ -3,6 +3,8 @@ import './AddNewRole.css'
 import { X } from 'react-feather';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Box, Button, Checkbox, Container, CssBaseline, FormControlLabel, Grid, Link, TextField, Typography } from '@mui/material';
+import ClearIcon from '@mui/icons-material/Clear';
+
 
 function AddNewRole(props) {
   const [showAddNewRole, setShowAddNewRole] = useState(false);
@@ -19,6 +21,10 @@ function AddNewRole(props) {
     // setRolePersonName(" ");
   }
 
+  const closeAddNewRole = () => {
+    setShowAddNewRole(!showAddNewRole);
+  }
+
   return (
     <div className='addNewRole'>
       {showAddNewRole
@@ -26,6 +32,7 @@ function AddNewRole(props) {
         <ThemeProvider theme={theme}>
           <Container component="main" sx={{ widows: '10%' }}>
             <CssBaseline />
+            <ClearIcon className='closeAddNewRole' sx={{ position: 'relative', float: 'right' }} onClick={() => { closeAddNewRole() }} />
             <Box
               sx={{
                 marginTop: 0,

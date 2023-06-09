@@ -23,7 +23,6 @@ function NavBar(props) {
   const { currentUser, logOutUser } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
-  console.log(currentUser);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -101,7 +100,7 @@ function NavBar(props) {
             sx={{
               mr: 2,
               flexGrow: 1,
-              fontFamily: 'monospace',
+              fontFamily: 'Oswald',
               fontWeight: 700,
               letterSpacing: '.2rem',
               color: 'inherit',
@@ -110,7 +109,7 @@ function NavBar(props) {
               alignItems: 'center',
             }}
           >
-            {props?.conferenceName || 'CRM APP'}
+            {props?.conferenceName || 'ReviewerScope'}
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {/* {pages.map((page) => (
@@ -124,6 +123,20 @@ function NavBar(props) {
             ))} */}
           </Box>
           <Box sx={{ flexGrow: 0 }}>
+            <Button
+              variant="outlined"
+              onClick={() => navigate('/home')}
+              sx={{ color: '#fff', borderColor: '#fff', marginRight: '0.3rem' }}
+            >
+              Home
+            </Button>
+            <Button
+              variant="outlined"
+              onClick={() => navigate('/dashboard')}
+              sx={{ color: '#fff', borderColor: '#fff', marginRight: '0.3rem' }}
+            >
+              Dashboard
+            </Button>
             {showLoginLogoutButton && (
               <Button
                 variant="outlined"
@@ -135,7 +148,7 @@ function NavBar(props) {
             )}
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar sx={{ backgroundColor: 'darkslateblue' }} alt="Settings">
+                <Avatar sx={{ backgroundColor: 'transparent' }} alt="Settings">
                   <Settings />
                 </Avatar>
               </IconButton>
