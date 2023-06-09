@@ -27,7 +27,6 @@ function Home() {
     onValue(conferenceRef, (snapshot) => {
       const data = snapshot.val();
       if (data) {
-        console.log(data);
         setConferenceData(data);
       }
     });
@@ -266,7 +265,7 @@ function Home() {
 
   // Add a new Role to a Conference Board
   const addNewRole = async (roleType, rolePersonName) => {
-    const colorPalettes = ['#7149C6', '#FC2947', '#FC2947', '#39B5E0', '#82CD47','#2192FF','#400D51'];
+    const colorPalettes = ['#479EF5', '#479EF5', '#479EF5', '#479EF5', '#479EF5', '#479EF5', '#479EF5'];
     const backgroundColor = colorPalettes[Math.floor(Math.random() * colorPalettes.length)];
 
     const rolesRef = ref(crmdatabase, `conferences/${currentUser.uid}/conferences/${conferenceId}/roles`);
@@ -292,7 +291,7 @@ function Home() {
         names: [rolePersonName],
         contact_info: "",
         tasks: [],
-        colorCode:backgroundColor
+        colorCode: backgroundColor
       };
 
       // Add new role object to roles node
@@ -349,12 +348,12 @@ function Home() {
     setTargetRoleDrag({ role_id, task_id });
   };
 
-  const handleDragEnd = (task_id, role_id) => {
+  const handleDragEnd = (role_id, task_id) => {
     const sourceRoleId = role_id;
     const sourceTaskId = task_id;
     const targetRoleId = targetRoleDrag.role_id;
 
-    console.log(sourceRoleId,sourceTaskId,targetRoleId);
+    console.log(sourceRoleId, sourceTaskId, targetRoleId);
 
     // Get a reference to the Firebase Realtime Database location of the task being dragged
     const sourceTaskRef = ref(
@@ -377,8 +376,14 @@ function Home() {
         remove(sourceTaskRef);
 
         // Update the database with the new task and role
-        console.log(updates);
-        return update(crmdatabase, updates);
+        return update(ref(crmdatabase), updates)
+          .then(() => {
+            console.log('Database updated successfully.');
+          })
+          .catch((error) => {
+            console.error('Error updating the database:', error);
+          });
+
       })
       .catch((error) => {
         console.error(error);
@@ -417,6 +422,8 @@ function Home() {
     }
   };
 
+  
+
 
   // Export Conference Data as json
   const handleSaveToPC = () => {
@@ -438,7 +445,7 @@ function Home() {
           handleSaveToPC={handleSaveToPC} />
       </header>
       <div className="boardContainer">
-        <TimelineComponent conferenceDates={ConferenceData} />
+        <TimelineComponent conferenceDates={ConferenceData} getAllTasks={getAllTasks} />
         <div className="boardOuter">
           {ConferenceData?.roles ? (
             Object.keys(ConferenceData?.roles).map((role_id) => (

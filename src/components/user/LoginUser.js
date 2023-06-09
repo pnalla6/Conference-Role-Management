@@ -26,7 +26,7 @@ import NavBar from '../home/NavBar';
 //         <Typography variant="body2" color="text.secondary" align="center" {...props}>
 //             {'Copyright © '}
 //             <Link color="inherit" href="">
-//                 CRM App
+//                 ReviewerScope
 //             </Link>{' '}
 //             {new Date().getFullYear()}
 //             {'.'}
@@ -78,11 +78,6 @@ function LoginUser() {
         const data = new FormData(event.currentTarget);
 
         if (data.get('email') && data.get('password')) {
-            console.log({
-                email: data.get('email'),
-                password: data.get('password')
-            });
-
             try {
                 setErrorMessage('');
                 setLoading(true);

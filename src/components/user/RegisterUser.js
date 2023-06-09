@@ -25,7 +25,7 @@ import { useNavigate } from 'react-router-dom';
 //         <Typography variant="body2" color="text.secondary" align="center" {...props}>
 //             {'Copyright © '}
 //             <Link color="inherit" href="https://mui.com/">
-//                 CRM APP
+//                 ReviewerScope
 //             </Link>{' '}
 //             {new Date().getFullYear()}
 //             {'.'}

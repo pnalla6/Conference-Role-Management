@@ -53,3 +53,7 @@
 .addNewRoleForm > .addNewRoleFormFooter > svg {
     cursor: pointer;
 }
+
+.closeAddNewRole:hover{
+color: red;
+}
